@@ -7,4 +7,5 @@ import com.mert.bounty.ui.base.BountyPresenter;
  */
 
 public interface MainPresenter extends BountyPresenter {
+    void onTakePictureRequested();
 }

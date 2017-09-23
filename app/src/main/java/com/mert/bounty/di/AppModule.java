@@ -3,8 +3,8 @@ package com.mert.bounty.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.mert.bounty.data.api.BountyApiClient;
 import com.mert.bounty.data.BountyService;
+import com.mert.bounty.data.api.BountyApiClient;
 
 import javax.inject.Singleton;
 

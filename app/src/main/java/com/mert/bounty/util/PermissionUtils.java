@@ -3,11 +3,13 @@ package com.mert.bounty.util;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -19,13 +21,15 @@ import com.mert.bounty.R;
  */
 public abstract class PermissionUtils {
 
+    public static final int PERMISSION_REQUEST_CODE = 1543;
+
     /**
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
      */
     public static void requestPermission(AppCompatActivity activity, int requestId,
-                                         String permission, boolean finishActivity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                                         String[] permissions, boolean finishActivity) {
+        /*if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
             // Display a dialog with rationale.
             PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
                     .show(activity.getSupportFragmentManager(), "dialog");
@@ -33,7 +37,10 @@ public abstract class PermissionUtils {
             // Location permission has not been granted yet, request it.
             ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
 
-        }
+        }*/
+
+        ActivityCompat.requestPermissions(activity, permissions, requestId);
+
     }
 
     /**
@@ -50,6 +57,10 @@ public abstract class PermissionUtils {
             }
         }
         return false;
+    }
+
+    public static boolean checkSelfPermission(Context context, String permission) {
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -102,7 +113,7 @@ public abstract class PermissionUtils {
      * The activity should implement
      * {@link android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback}
      * to handle permit or denial of this permission request.
-     */
+     *//*
     public static class RationaleDialog extends DialogFragment {
 
         private static final String ARGUMENT_PERMISSION_REQUEST_CODE = "requestCode";
@@ -111,7 +122,7 @@ public abstract class PermissionUtils {
 
         private boolean mFinishActivity = false;
 
-        /**
+        *//**
          * Creates a new instance of a dialog displaying the rationale for the use of the location
          * permission.
          * <p>
@@ -122,7 +133,7 @@ public abstract class PermissionUtils {
          *                       {@link android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback}.
          * @param finishActivity Whether the calling Activity should be finished if the dialog is
          *                       cancelled.
-         */
+         *//*
         public static RationaleDialog newInstance(int requestCode, boolean finishActivity) {
             Bundle arguments = new Bundle();
             arguments.putInt(ARGUMENT_PERMISSION_REQUEST_CODE, requestCode);
@@ -137,15 +148,19 @@ public abstract class PermissionUtils {
             Bundle arguments = getArguments();
             final int requestCode = arguments.getInt(ARGUMENT_PERMISSION_REQUEST_CODE);
             mFinishActivity = arguments.getBoolean(ARGUMENT_FINISH_ACTIVITY);
+            final String permission = requestCode == LOCATION_PERMISSION_REQUEST_CODE
+                    ? Manifest.permission.ACCESS_FINE_LOCATION : Manifest.permission.CAMERA;
+            int rationaleMessageRes = requestCode == LOCATION_PERMISSION_REQUEST_CODE
+                    ? R.string.permission_rationale_location : R.string.permission_rationale_camera;
 
             return new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.permission_rationale_location)
+                    .setMessage(rationaleMessageRes)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // After click on Ok, request the permission.
                             ActivityCompat.requestPermissions(getActivity(),
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    new String[]{permission},
                                     requestCode);
                             // Do not finish the Activity while requesting permission.
                             mFinishActivity = false;
@@ -166,5 +181,5 @@ public abstract class PermissionUtils {
                 getActivity().finish();
             }
         }
-    }
+    }*/
 }

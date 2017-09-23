@@ -1,6 +1,7 @@
 package com.mert.bounty.ui;
 
 import com.mert.bounty.data.BountyService;
+import com.mert.bounty.data.location.LocationService;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,12 +14,17 @@ import dagger.Provides;
 public class MainActivityModule {
 
     @Provides
-    MainView provideMainView(MainActivity mainActivity){
+    MainView provideMainView(MainActivity mainActivity) {
         return mainActivity;
     }
 
     @Provides
-    MainPresenter provideMainPresenter(MainView mainView, BountyService service){
+    MainPresenter provideMainPresenter(MainView mainView, BountyService service) {
         return new MainPresenterImpl(mainView, service);
+    }
+
+    @Provides
+    LocationService provideLocationService(MainView mainView) {
+        return new LocationService(mainView);
     }
 }

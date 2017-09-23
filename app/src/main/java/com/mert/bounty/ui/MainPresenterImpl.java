@@ -25,4 +25,8 @@ public class MainPresenterImpl extends BaseObservable implements MainPresenter {
         this.service = service;
     }
 
+    @Override
+    public void onTakePictureRequested() {
+        mainView.onTakePictureButtonClicked();
+    }
 }
