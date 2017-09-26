@@ -1,5 +1,7 @@
 package com.mert.bounty.ui;
 
+import com.mert.bounty.ui.camera.CameraBuilder;
+
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -9,6 +11,6 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class MainBuilder {
     @ContributesAndroidInjector(
-            modules = {MainActivityModule.class})
+            modules = {MainActivityModule.class, CameraBuilder.class})
     public abstract MainActivity bindMainActivity();
 }

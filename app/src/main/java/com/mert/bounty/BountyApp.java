@@ -1,5 +1,6 @@
 package com.mert.bounty;
 
+
 import com.mert.bounty.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;

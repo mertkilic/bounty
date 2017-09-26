@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 
 import com.mert.bounty.R;
 import com.mert.bounty.data.location.LocationService;
 import com.mert.bounty.databinding.ActivityMainBinding;
 import com.mert.bounty.ui.base.BountyActivity;
+import com.mert.bounty.ui.camera.CameraFragment;
 import com.mert.bounty.util.PermissionUtils;
 
 import java.util.ArrayList;
@@ -97,7 +100,7 @@ public class MainActivity extends BountyActivity<ActivityMainBinding> implements
                 if (PermissionUtils.isPermissionGranted(permissions, grantResults,
                         Manifest.permission.CAMERA)) {
                     if (PermissionUtils.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                        //TODO open camera
+                        openCamera();
                     }
                 }
 
@@ -105,7 +108,7 @@ public class MainActivity extends BountyActivity<ActivityMainBinding> implements
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
                     locationService.startLocationUpdates();
                     if (PermissionUtils.checkSelfPermission(this, Manifest.permission.CAMERA)) {
-                        //TODO open camera
+                        openCamera();
                     } else showMissingPermissionError();
                 }
 
@@ -133,8 +136,8 @@ public class MainActivity extends BountyActivity<ActivityMainBinding> implements
             PermissionUtils.requestPermission(this, PermissionUtils.PERMISSION_REQUEST_CODE,
                     permissions.toArray(new String[permissions.size()]), false);
         } else {
-            locationService.startLocationUpdates();
-            //TODO open camera
+            //locationService.startLocationUpdates();
+            openCamera();
         }
     }
 
@@ -143,4 +146,17 @@ public class MainActivity extends BountyActivity<ActivityMainBinding> implements
                 .newInstance(false).show(getSupportFragmentManager(), "dialog");
     }
 
+    private void openCamera(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .replace(R.id.fragment_container,new CameraFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+    }
 }
