@@ -1,7 +1,5 @@
 package com.mert.bounty.data.api;
 
-import com.mert.bounty.data.BountyService;
-
 import javax.inject.Inject;
 
 /**

@@ -3,8 +3,8 @@ package com.mert.bounty.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.mert.bounty.data.BountyService;
 import com.mert.bounty.data.api.BountyApiClient;
+import com.mert.bounty.data.api.BountyService;
 
 import javax.inject.Singleton;
 
@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.mert.bounty.data.api.GettyClientConfig.BASE_ENDPOINT;
+import static com.mert.bounty.data.api.BountyClientConfig.BASE_ENDPOINT;
 
 /**
  * Created by Mert Kilic on 18.7.2017.
@@ -46,12 +46,6 @@ public class AppModule {
     BountyApiClient provideBountyApiClient(BountyService bountyService) {
         return new BountyApiClient(bountyService);
     }
-
-    /*@Provides
-    @Singleton
-    Interceptor provideInterceptor() {
-        return new OfflineMockInterceptor();
-    }*/
 
     @Provides
     @Singleton
