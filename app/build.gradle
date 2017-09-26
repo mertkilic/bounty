@@ -20,7 +20,7 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'GETTY_API_KEY', GettyImagesApiKey
+        it.buildConfigField 'String', 'BOUNTY_API_KEY', BountyApiKey
     }
 
     dataBinding {
