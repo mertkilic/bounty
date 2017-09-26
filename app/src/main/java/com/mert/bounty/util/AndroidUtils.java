@@ -1,4 +1,4 @@
-package com.mert.getty.util;
+package com.mert.bounty.util;
 
 import android.app.Activity;
 import android.content.Context;
