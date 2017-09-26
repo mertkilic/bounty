@@ -4,8 +4,13 @@
     <string name="take_picture">Take Picture !</string>
 
     <!--    Permissions    -->
-    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
+    <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my
+        location\' feature, which shows your current location on the map.
+    </string>
     <string name="permission_rationale_camera">Access to the camera is required.</string>
-    <string name="location_permission_denied">This sample requires location and camera permission. Please try again and grant access to use the location and camera.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt;.</string>
+    <string name="location_permission_denied">This sample requires location and camera permission. Please try again and
+        grant access to use the location and camera.\nIf the permission has been permanently denied, it can be enabled
+        from the System Settings &gt; Apps &gt;.
+    </string>
     <string name="permission_required_toast">Location and camera permission is required for this demo.</string>
 </resources>

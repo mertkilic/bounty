@@ -9,7 +9,7 @@
 
         <variable
             name="presenter"
-            type="com.mert.bounty.ui.MainPresenter"/>
+            type="com.mert.bounty.ui.MainPresenterImpl"/>
     </data>
 
     <FrameLayout
@@ -24,7 +24,8 @@
             android:layout_gravity="center"
             android:onClick="@{()->presenter.onTakePictureRequested()}"
             android:text="@string/take_picture"
-            android:textAllCaps="false"/>
+            android:textAllCaps="false"
+            android:visibility="@{!presenter.cameraOpen}"/>
 
         <FrameLayout
             android:id="@+id/fragment_container"

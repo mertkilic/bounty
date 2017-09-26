@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="presenter"
+            type="com.mert.bounty.ui.camera.CameraPresenter"/>
+    </data>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -22,8 +29,9 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@null"
             android:layout_marginBottom="24dp"
+            android:background="@null"
+            android:onClick="@{()->presenter.onPictureCaptureClicked()}"
             android:src="@drawable/ic_camera_alt_purple_200_36dp"/>
 
     </FrameLayout>
