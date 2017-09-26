@@ -1,6 +1,4 @@
-# Getty
-Getty images API client for Android
+# Bounty
 
- - Backed up by [Getty API](http://developers.gettyimages.com/en/).
- - Implemented with MVP pattern, Android's databinding and Dagger 2.
- - Unit tests are implemented.
+Take pictures and send them with your current location.
+Under development
