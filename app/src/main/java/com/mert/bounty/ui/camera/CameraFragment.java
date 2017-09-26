@@ -21,9 +21,10 @@ import dagger.android.support.AndroidSupportInjection;
  * Created by Mert Kilic on 25.9.2017.
  */
 
-public class CameraFragment extends Fragment {
+public class CameraFragment extends Fragment implements com.mert.bounty.ui.camera.CameraView {
 
     FragmentCameraBinding binding;
+    CameraInteractionListener listener;
 
     @Inject
     CameraPresenter cameraPresenter;
@@ -31,12 +32,12 @@ public class CameraFragment extends Fragment {
     private CameraView.Callback cameraCallback = new CameraView.Callback() {
         @Override
         public void onCameraOpened(CameraView cameraView) {
-            super.onCameraOpened(cameraView);
+            listener.onCameraOpened();
         }
 
         @Override
         public void onCameraClosed(CameraView cameraView) {
-            super.onCameraClosed(cameraView);
+            listener.onCameraClosed();
         }
 
         @Override
@@ -49,19 +50,23 @@ public class CameraFragment extends Fragment {
     public void onAttach(Context context) {
         AndroidSupportInjection.inject(this);
         super.onAttach(context);
+        if (context instanceof CameraInteractionListener) {
+            listener = (CameraInteractionListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_camera, container, false);
+        binding.setPresenter(cameraPresenter);
         binding.camera.addCallback(cameraCallback);
-        binding.btnCapture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.camera.takePicture();
-            }
-        });
         return binding.getRoot();
     }
 
@@ -75,5 +80,20 @@ public class CameraFragment extends Fragment {
     public void onPause() {
         binding.camera.stop();
         super.onPause();
+    }
+
+    @Override
+    public CameraView getCamera() {
+        return binding.camera;
+    }
+
+    @Override
+    public void showPicture(String path) {
+//TODO show picture to user with send to the server option
+    }
+
+    public interface CameraInteractionListener{
+        void onCameraOpened();
+        void onCameraClosed();
     }
 }

@@ -1,6 +1,6 @@
 package com.mert.bounty.ui;
 
-import com.mert.bounty.data.BountyService;
+import com.mert.bounty.data.api.BountyService;
 import com.mert.bounty.data.location.LocationService;
 
 import dagger.Module;

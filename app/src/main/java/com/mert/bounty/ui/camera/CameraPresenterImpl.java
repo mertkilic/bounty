@@ -1,7 +1,7 @@
 package com.mert.bounty.ui.camera;
 
-import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import java.io.File;
@@ -18,13 +18,15 @@ import javax.inject.Inject;
 public class CameraPresenterImpl implements CameraPresenter {
 
     private static final String TAG = CameraPresenterImpl.class.getSimpleName();
+    private static final String PICTURE_NAME = "bounty.jpg";
     private Handler backgroundHandler;
-    private Context context;
+    private Handler mainHandler = new Handler(Looper.getMainLooper());
+    private CameraView cameraView;
 
     @Inject
-    public CameraPresenterImpl(Context context, Handler backgroundHandler) {
+    public CameraPresenterImpl(CameraView cameraView, Handler backgroundHandler) {
         this.backgroundHandler = backgroundHandler;
-        this.context = context;
+        this.cameraView = cameraView;
     }
 
     @Override
@@ -32,12 +34,14 @@ public class CameraPresenterImpl implements CameraPresenter {
         backgroundHandler.post(new Runnable() {
             @Override
             public void run() {
-                File file = new File(context.getFilesDir(), "picture.jpg");
+                File file = new File(cameraView.getContext().getFilesDir(), PICTURE_NAME);
+                //TODO add location coordinates to ExifInterface
                 OutputStream os = null;
                 try {
                     os = new FileOutputStream(file);
                     os.write(data);
                     os.close();
+                    onPictureSaved(file.getAbsolutePath());
                 } catch (IOException e) {
                     Log.w(TAG, "Cannot write to " + file, e);
                 } finally {
@@ -49,6 +53,20 @@ public class CameraPresenterImpl implements CameraPresenter {
                         }
                     }
                 }
+            }
+        });
+    }
+
+    @Override
+    public void onPictureCaptureClicked() {
+        cameraView.getCamera().takePicture();
+    }
+
+    private void onPictureSaved(final String path){
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                cameraView.showPicture(path);
             }
         });
     }

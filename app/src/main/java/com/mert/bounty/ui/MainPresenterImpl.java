@@ -3,7 +3,7 @@ package com.mert.bounty.ui;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 
-import com.mert.bounty.data.BountyService;
+import com.mert.bounty.data.api.BountyService;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ public class MainPresenterImpl extends BaseObservable implements MainPresenter {
 
     private MainView mainView;
     private BountyService service;
-    private ObservableBoolean loading = new ObservableBoolean(false);
+    private ObservableBoolean cameraOpen = new ObservableBoolean(false);
 
     @Inject
     MainPresenterImpl(MainView mainView, BountyService service) {
@@ -28,5 +28,13 @@ public class MainPresenterImpl extends BaseObservable implements MainPresenter {
     @Override
     public void onTakePictureRequested() {
         mainView.onTakePictureButtonClicked();
+    }
+
+    public void setCameraOpen(boolean cameraOpen) {
+        this.cameraOpen.set(cameraOpen);
+    }
+
+    public ObservableBoolean getCameraOpen() {
+        return cameraOpen;
     }
 }

@@ -8,4 +8,5 @@ import com.mert.bounty.ui.base.BountyPresenter;
 
 public interface CameraPresenter extends BountyPresenter{
     void savePicture(byte[] data);
+    void onPictureCaptureClicked();
 }

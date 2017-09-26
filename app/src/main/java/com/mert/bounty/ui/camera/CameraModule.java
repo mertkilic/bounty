@@ -20,8 +20,13 @@ public class CameraModule {
     }
 
     @Provides
-    CameraPresenter provideCameraPresenter(CameraFragment fragment, Handler handler) {
-        return new CameraPresenterImpl(fragment.getContext(), handler);
+    CameraView provideCameraView(CameraFragment fragment) {
+        return fragment;
+    }
+
+    @Provides
+    CameraPresenter provideCameraPresenter(CameraView cameraView, Handler backgroundHandler) {
+        return new CameraPresenterImpl(cameraView, backgroundHandler);
     }
 
 }
